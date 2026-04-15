@@ -1,0 +1,57 @@
+<view class="page">
+  <view class="header-card">
+    <view class="header-title">今日建议</view>
+    <view class="header-desc">结合天气与训练安排，生成更贴近当天状态的建议</view>
+  </view>
+
+  <view class="form-card">
+    <view class="section-title">今日设置</view>
+
+    <view class="info-box">纬度：{{latitude || '未获取'}}</view>
+    <view class="info-box">经度：{{longitude || '未获取'}}</view>
+
+    <picker mode="selector" range="{{goalTextOptions}}" bindchange="onGoalChange">
+      <view class="picker">目标：{{goalTextOptions[goalIndex]}}</view>
+    </picker>
+
+    <picker mode="selector" range="{{trainingTextOptions}}" bindchange="onTrainingChange">
+      <view class="picker">今日训练类型：{{trainingTextOptions[trainingIndex]}}</view>
+    </picker>
+
+    <button class="main-btn" type="primary" bindtap="refreshAndGetAdvice">刷新定位并生成建议</button>
+  </view>
+
+  <view class="result-card" wx:if="{{result}}">
+    <view class="section-title">天气信息</view>
+
+    <view class="result-row">
+      <text class="label">当前温度</text>
+      <text class="value">{{result.weather.temperature}} °C</text>
+    </view>
+    <view class="result-row">
+      <text class="label">体感温度</text>
+      <text class="value">{{result.weather.apparent_temperature}} °C</text>
+    </view>
+    <view class="result-row">
+      <text class="label">最高温</text>
+      <text class="value">{{result.weather.temp_max}} °C</text>
+    </view>
+    <view class="result-row">
+      <text class="label">最低温</text>
+      <text class="value">{{result.weather.temp_min}} °C</text>
+    </view>
+    <view class="result-row">
+      <text class="label">降水</text>
+      <text class="value">{{result.weather.precipitation_sum}} mm</text>
+    </view>
+    <view class="result-row">
+      <text class="label">风速</text>
+      <text class="value">{{result.weather.wind_speed}} km/h</text>
+    </view>
+
+    <view class="sub-title">今日建议</view>
+    <view wx:for="{{result.advice}}" wx:key="index" class="advice-item">
+      {{index + 1}}. {{item}}
+    </view>
+  </view>
+</view>

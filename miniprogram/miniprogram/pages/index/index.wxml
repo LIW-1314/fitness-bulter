@@ -1,0 +1,42 @@
+<view class="page">
+  <view class="hero">
+    <view class="hero-title"> 往死里犯健</view>
+    <view class="hero-subtitle"> 安排你的训练计划 </view>
+  </view>
+
+  <view class="section-title">核心功能</view>
+
+  <view class="card-list">
+    <view class="card" bindtap="goBodyFat">
+      <view class="card-title">体脂计算</view>
+      <view class="card-desc">输入基础信息，快速估算 BMI 和体脂率</view>
+    </view>
+
+    <view class="card" bindtap="goDiet">
+      <view class="card-title">饮食推荐</view>
+      <view class="card-desc">根据目标生成热量与三大营养素建议</view>
+    </view>
+
+    <view class="card" bindtap="goTraining">
+      <view class="card-title">训练计划</view>
+      <view class="card-desc">按目标、经验和训练天数生成计划</view>
+    </view>
+
+    <view class="card" bindtap="goAdvice">
+      <view class="card-title">今日建议</view>
+      <view class="card-desc">结合天气和训练类型，生成当天建议</view>
+    </view>
+  </view>
+
+  <view class="debug-box">
+    <button type="primary" bindtap="testPing">测试后端连接</button>
+    <view class="debug-result">结果：{{result}}</view>
+  </view>
+  
+  <view class="card" bindtap="goChat">
+    <view class="card-title">AI 健身助手</view>
+    <view class="card-desc">和 AI 教练对话，获取实时建议</view>
+  </view>
+
+</view>
+

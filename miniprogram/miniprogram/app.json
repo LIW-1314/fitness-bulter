@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/bodyfat/bodyfat",
+    "pages/diet/diet",
+    "pages/training/training",
+    "pages/advice/advice",
+    "pages/chat/chat"
+  ],
+  "requirePrivateInfos": [
+    "getLocation",
+    "choosePoi",
+    "chooseAddress"
+  ],
+  "window": {
+    "navigationBarTitleText": "健身管家"
+  }
+}

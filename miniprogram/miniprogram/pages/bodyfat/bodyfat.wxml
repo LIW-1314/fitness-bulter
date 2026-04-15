@@ -1,0 +1,39 @@
+<view class="page">
+  <view class="header-card">
+    <view class="header-title">体脂计算</view>
+    <view class="header-desc">输入你的基础身体信息，快速估算 BMI 与体脂率</view>
+  </view>
+
+  <view class="form-card">
+    <view class="section-title">基础信息</view>
+
+    <picker mode="selector" range="{{genderOptions}}" value="{{genderIndex}}" bindchange="onGenderChange">
+      <view class="picker">性别：{{genderOptions[genderIndex]}}</view>
+    </picker>
+
+    <input class="input" type="number" placeholder="请输入年龄" value="{{age}}" bindinput="onAgeInput" />
+    <input class="input" type="number" placeholder="请输入身高(cm)" value="{{height_cm}}" bindinput="onHeightInput" />
+    <input class="input" type="number" placeholder="请输入体重(kg)" value="{{weight_kg}}" bindinput="onWeightInput" />
+
+    <button class="main-btn" type="primary" bindtap="calculateBodyFat">开始计算</button>
+  </view>
+
+  <view class="result-card" wx:if="{{result}}">
+    <view class="section-title">计算结果</view>
+
+    <view class="result-row">
+      <text class="label">BMI</text>
+      <text class="value">{{result.bmi}}</text>
+    </view>
+
+    <view class="result-row">
+      <text class="label">体脂率</text>
+      <text class="value">{{result.body_fat}}%</text>
+    </view>
+
+    <view class="result-row">
+      <text class="label">体型判断</text>
+      <text class="value">{{result.level}}</text>
+    </view>
+  </view>
+</view>

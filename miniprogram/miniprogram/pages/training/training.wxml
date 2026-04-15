@@ -1,0 +1,75 @@
+<view class="page">
+  <view class="header-card">
+    <view class="header-title">训练计划</view>
+    <view class="header-desc">根据目标、经验和训练频率，生成每周训练安排</view>
+  </view>
+
+  <view class="form-card">
+    <view class="section-title">计划设置</view>
+
+    <picker mode="selector" range="{{goalTextOptions}}" bindchange="onGoalChange">
+      <view class="picker">目标：{{goalTextOptions[goalIndex]}}</view>
+    </picker>
+
+    <picker mode="selector" range="{{experienceTextOptions}}" bindchange="onExperienceChange">
+      <view class="picker">经验：{{experienceTextOptions[experienceIndex]}}</view>
+    </picker>
+
+    <picker mode="selector" range="{{daysTextOptions}}" bindchange="onDaysChange">
+      <view class="picker">每周训练天数：{{daysTextOptions[daysIndex]}}</view>
+    </picker>
+
+    <button class="main-btn" type="primary" bindtap="getTrainingPlan">生成训练计划</button>
+  </view>
+
+  <view class="result-card" wx:if="{{result}}">
+    <view class="section-title">每周安排</view>
+
+    <view wx:for="{{result.plan}}" wx:key="index" class="day-card">
+      <view class="day-top">
+        <view class="day-title">{{item.day}}</view>
+        <view class="day-focus">{{item.focus}}</view>
+      </view>
+
+      <view class="summary-box">
+        <view class="small-title">训练思路</view>
+        <view class="summary-text">{{item.summary}}</view>
+      </view>
+
+      <view class="group-box">
+        <view class="small-title">目标肌群</view>
+        <view class="tag-list">
+          <view wx:for="{{item.muscle_groups}}" wx:for-item="group" wx:key="idx" class="tag">
+            {{group}}
+          </view>
+        </view>
+      </view>
+
+      <view class="exercise-box">
+        <view class="small-title">推荐动作</view>
+
+        <view wx:for="{{item.exercises}}" wx:for-item="exercise" wx:key="idx" class="exercise-card">
+          <view class="exercise-name">{{exercise.name}}</view>
+          <view class="exercise-target">目标部位：{{exercise.target}}</view>
+          <view class="exercise-meta">
+            <text>组数：{{exercise.sets}}</text>
+            <text>次数：{{exercise.reps}}</text>
+            <text>休息：{{exercise.rest}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="advice-box">
+        <view class="small-title">当天建议</view>
+        <view class="advice-text">{{item.advice}}</view>
+      </view>
+    </view>
+
+    <view class="extra-card" wx:if="{{result.extra_advice && result.extra_advice.length}}">
+      <view class="section-title">补充建议</view>
+      <view wx:for="{{result.extra_advice}}" wx:key="index" class="extra-item">
+        {{index + 1}}. {{item}}
+      </view>
+    </view>
+  </view>
+</view>

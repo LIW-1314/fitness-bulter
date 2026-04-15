@@ -1,0 +1,101 @@
+<view class="page">
+  <view class="header-card">
+    <view class="header-title">饮食推荐</view>
+    <view class="header-desc">根据目标与活动水平，生成每日热量、营养素与可执行饮食方案</view>
+  </view>
+
+  <view class="form-card">
+    <view class="section-title">基础信息</view>
+
+    <picker mode="selector" range="{{genderOptions}}" bindchange="onGenderChange">
+      <view class="picker">性别：{{genderOptions[genderIndex]}}</view>
+    </picker>
+
+    <input class="input" type="number" placeholder="请输入年龄" bindinput="onAgeInput" />
+    <input class="input" type="number" placeholder="请输入身高(cm)" bindinput="onHeightInput" />
+    <input class="input" type="number" placeholder="请输入体重(kg)" bindinput="onWeightInput" />
+
+    <picker mode="selector" range="{{goalTextOptions}}" bindchange="onGoalChange">
+      <view class="picker">目标：{{goalTextOptions[goalIndex]}}</view>
+    </picker>
+
+    <picker mode="selector" range="{{activityTextOptions}}" bindchange="onActivityChange">
+      <view class="picker">活动水平：{{activityTextOptions[activityIndex]}}</view>
+    </picker>
+
+    <button class="main-btn" type="primary" bindtap="getDietPlan">生成饮食建议</button>
+  </view>
+
+  <view class="result-card" wx:if="{{result}}">
+    <view class="section-title">营养目标</view>
+
+    <view class="result-row">
+      <text class="label">基础代谢</text>
+      <text class="value">{{result.bmr}} kcal</text>
+    </view>
+    <view class="result-row">
+      <text class="label">每日消耗</text>
+      <text class="value">{{result.tdee}} kcal</text>
+    </view>
+    <view class="result-row">
+      <text class="label">目标热量</text>
+      <text class="value">{{result.target_calories}} kcal</text>
+    </view>
+    <view class="result-row">
+      <text class="label">蛋白质</text>
+      <text class="value">{{result.protein_g}} g</text>
+    </view>
+    <view class="result-row">
+      <text class="label">脂肪</text>
+      <text class="value">{{result.fat_g}} g</text>
+    </view>
+    <view class="result-row">
+      <text class="label">碳水</text>
+      <text class="value">{{result.carb_g}} g</text>
+    </view>
+  </view>
+
+  <view class="strategy-card" wx:if="{{result && result.diet_strategy}}">
+    <view class="section-title">饮食策略</view>
+    <view class="strategy-text">{{result.diet_strategy}}</view>
+  </view>
+
+  <view class="meal-card" wx:if="{{result && result.meal_plan}}">
+    <view class="section-title">每日饮食建议</view>
+
+    <view class="meal-section">
+      <view class="meal-title">早餐</view>
+      <view wx:for="{{result.meal_plan.breakfast}}" wx:for-item="food" wx:key="index" class="food-item">
+        {{food}}
+      </view>
+    </view>
+
+    <view class="meal-section">
+      <view class="meal-title">午餐</view>
+      <view wx:for="{{result.meal_plan.lunch}}" wx:for-item="food" wx:key="index" class="food-item">
+        {{food}}
+      </view>
+    </view>
+
+    <view class="meal-section">
+      <view class="meal-title">晚餐</view>
+      <view wx:for="{{result.meal_plan.dinner}}" wx:for-item="food" wx:key="index" class="food-item">
+        {{food}}
+      </view>
+    </view>
+
+    <view class="meal-section">
+      <view class="meal-title">加餐</view>
+      <view wx:for="{{result.meal_plan.snack}}" wx:for-item="food" wx:key="index" class="food-item">
+        {{food}}
+      </view>
+    </view>
+  </view>
+
+  <view class="advice-card" wx:if="{{result && result.advice && result.advice.length}}">
+    <view class="section-title">补充建议</view>
+    <view wx:for="{{result.advice}}" wx:key="index" class="advice-item">
+      {{index + 1}}. {{item}}
+    </view>
+  </view>
+</view>
